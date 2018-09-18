@@ -11,11 +11,9 @@
     "start:watch": "npm run build && npmDEBUG=express-sequelize node ./build/index.js",
     "test": "npm run test-unit && npm run test-integration",
     "test-unit": "cross-env NODE_ENV=test ./node_modules/.bin/mocha test/unit/*.test.js",
-    
     "test-integration": "cross-env NODE_ENV=test ./node_modules/.bin/mocha test/integration/*.test.js"
   },
   "dependencies": {
-    "babel-preset-env": "^1.7.0",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
@@ -37,7 +35,8 @@
     "@kant/babel-watch": "^2.1.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
-    "babel-preset-es2015": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
     "cross-env": "^3.1.3",
     "expect.js": "^0.3.1",
     "mocha": "^3.0.2",
