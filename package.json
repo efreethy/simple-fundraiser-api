@@ -10,8 +10,8 @@
     "start": "npm run build && npmDEBUG=express-sequelize node ./build/index.js",
     "start:watch": "npm run build && npmDEBUG=express-sequelize node ./build/index.js",
     "test": "npm run test-unit && npm run test-integration",
-    "test-unit": "cross-env NODE_ENV=test ./node_modules/.bin/mocha test/unit/*.test.js",
-    "test-integration": "cross-env NODE_ENV=test ./node_modules/.bin/mocha test/integration/*.test.js"
+    "test-unit": "cross-env NODE_ENV=test ./node_modules/.bin/mocha build/test/unit/*.test.js",
+    "test-integration": "cross-env NODE_ENV=test ./node_modules/.bin/mocha build/test/integration/*.test.js"
   },
   "dependencies": {
     "bluebird": "^3.5.1",

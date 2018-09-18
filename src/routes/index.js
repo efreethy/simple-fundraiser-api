@@ -1,4 +1,4 @@
-var models  = require('../db/models');
+import models from '../db';
 var express = require('express');
 var router  = express.Router();
 
