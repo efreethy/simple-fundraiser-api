@@ -8,7 +8,15 @@ import config    from '../config'
 const db = {};
 
 if (config.use_env_variable) {
-  var sequelize = new Sequelize(process.env[config.use_env_variable], config);
+  const { username, password, database, host, dialect } = config;
+  var sequelize = new Sequelize(process.env.DATABASE_URL, {
+    username,
+    password,
+    database,
+    dialect,
+    host, 
+    protocol: 'postgres',
+  });
 } else {
   var sequelize = new Sequelize(config.database, config.username, config.password, config);
 }

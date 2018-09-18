@@ -13,8 +13,8 @@ module.exports = {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     host: process.env.DB_HOSTNAME,
-    host: process.env.AUTH_TOKEN_SECRET,
-    dialect: 'mysql',
+    authentication_token_secret: (process.env.AUTH_TOKEN_SECRET || 'dev-secret'),
+    dialect: 'postgres',
     use_env_variable: 'DATABASE_URL'
   }
 };
