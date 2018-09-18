@@ -1,4 +1,5 @@
 node_modules
 npm-debug.log
+build
 *.sqlite
 .DS_Store

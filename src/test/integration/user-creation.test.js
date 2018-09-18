@@ -7,11 +7,11 @@ var request  = require('supertest');
 
 describe('user creation page', function () {
   before(function () {
-      return require('../../models').sequelize.sync();
+      return require('../../db/models').sequelize.sync();
   });
   
   beforeEach(function () {
-    this.models = require('../../models');
+    this.models = require('../../db/models');
 
     return Bluebird.all([
       this.models.Task.destroy({ truncate: true }),

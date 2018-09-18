@@ -1,6 +1,8 @@
 'use strict';
 
 var ShortUniqueId = require('short-unique-id');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 const ID_PREFIX = 'acc_'
 
 module.exports = (sequelize, DataTypes) => {
@@ -51,8 +53,13 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'accounts',
     underscored: true,
   });
-  Account.associate = function(models) {
-    // associations can be defined here
+
+  Account.findByUsernameOrEmail = ({ username, email }) => {
+    const or = []
+    if (username) or.push({ username });
+    if (email) or.push({ email });
+    
+    return Account.findOne({ where: { [Op.or]: or } });
   };
   return Account;
 };

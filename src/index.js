@@ -4,16 +4,16 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+var app = require('./app');
 var debug = require('debug')('express-sequelize');
 debug('AA')
 var http = require('http');
-var models = require('../models');
+var models = require('./db/models');
 
 /**
  * Get port from environment and store in Express.
  */
-debug('A')
+debug('AABB')
 var port = normalizePort(process.env.PORT || '4001');
 app.set('port', port);
   /**
