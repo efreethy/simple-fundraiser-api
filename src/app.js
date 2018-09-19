@@ -31,7 +31,6 @@ app.use(function(req, res, next) {
 });
 
 // error handler
-// no stacktraces leaked to user unless in development environment
 app.use((err, _, res, __) => {
   res.status(err.status || 500);
   
