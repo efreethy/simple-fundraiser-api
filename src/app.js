@@ -3,10 +3,9 @@ import path from 'path';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
-
-import routes from './routes/index';
-import users  from './routes/users';
-import accounts  from './routes/accounts';
+import accounts  from './api/routes/accounts';
+import ApiError from './api/errors';
+require('express-joi-validation')({ passError: true })
 
 const app = express();
 
@@ -22,8 +21,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
 app.use('/accounts', accounts);
 
 // catch 404 and forward to error handler
@@ -35,12 +32,18 @@ app.use(function(req, res, next) {
 
 // error handler
 // no stacktraces leaked to user unless in development environment
-app.use(function(err, req, res, next) {
+app.use((err, _, res, __) => {
   res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: (app.get('env') === 'development') ? err : {}
-  });
+  
+  let error = err;
+  if (err.error.isJoi) {
+    error = new ApiError.ValidationError({ message: err.error.details[0].message });
+  }
+  if (app.get('env') === 'development')  {
+    res.json(error);
+  } else {
+    res.json({ code: error.code, message: error.message })
+  }s
 });
 
 

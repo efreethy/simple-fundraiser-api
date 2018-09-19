@@ -18,6 +18,7 @@ if (config.use_env_variable) {
     protocol: 'postgres',
   });
 } else {
+  console.log("DEBUG THIS STUFF")
   var sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 

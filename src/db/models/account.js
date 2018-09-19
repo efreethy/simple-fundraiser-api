@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       defaultValue: () => {
         var uid = new ShortUniqueId();
-        return `${ID_PREFIX+uid.randomUUID(6)}`
+        return `${ID_PREFIX+uid.randomUUID(12)}`
       },
     },
     username: {
