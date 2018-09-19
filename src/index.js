@@ -1,39 +1,22 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
 import app from './app';
 var debug = require('debug')('express-sequelize');
 debug('AA')
 var http = require('http');
 import db from './db';
 
-/**
- * Get port from environment and store in Express.
- */
-debug('AABB')
-var port = normalizePort(process.env.PORT || '4001');
-app.set('port', port);
-  /**
-   * Create HTTP server.
-   */
+
+const PORT = normalizePort(process.env.PORT || '4001');
+app.set('port', PORT);
+
 var server = http.createServer(app);
-debug('B')
-db.sequelize.sync().then(function() {
-  /**
-   * Listen on provided port, on all network interfaces.
-   */
-  server.listen(port, function() {
-    debug('Express server listening on port ' + server.address().port);
-  });
+
+db.sequelize.sync().then(() => {
+  server.listen(PORT, () => debug('Express server listening on port ' + server.address().port));
   server.on('error', onError);
   server.on('listening', onListening);
 });
-
-/**
- * Normalize a port into a number, string, or false.
- */
 
 function normalizePort(val) {
   var port = parseInt(val, 10);
@@ -51,18 +34,14 @@ function normalizePort(val) {
   return false;
 }
 
-/**
- * Event listener for HTTP server "error" event.
- */
-
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
 
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+  var bind = typeof PORT === 'string'
+    ? 'Pipe ' + PORT
+    : 'Port ' + PORT;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -78,10 +57,6 @@ function onError(error) {
       throw error;
   }
 }
-
-/**
- * Event listener for HTTP server "listening" event.
- */
 
 function onListening() {
   var addr = server.address();

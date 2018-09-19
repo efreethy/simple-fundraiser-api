@@ -44,7 +44,7 @@ app.use((err, _, res, __) => {
     res.json(error);
   } else {
     res.json({ code: error.code, message: error.message })
-  }s
+  }
 });
 
 
