@@ -35,8 +35,9 @@ app.use(function(req, res, next) {
 app.use((err, _, res, __) => {
   res.status(err.status || 500);
   
+  console.log('ERR', err)
   let error = err;
-  if (err.error.isJoi) {
+  if (err.error && err.error.isJoi) {
     error = new ApiError.ValidationError({ message: err.error.details[0].message });
   }
   if (app.get('env') === 'development')  {

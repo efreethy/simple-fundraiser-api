@@ -40,9 +40,22 @@ class ValidationError extends ApiError {
     }
 }
 
+class AuthenticationError extends ApiError {
+    constructor(details) {
+        const defaults =  {
+            status: 401,
+            code: 'authentication_error',
+            message: 'Invalid username or password'
+        };
+        super(assign(defaults, details))
+        Error.captureStackTrace(this, AuthenticationError);
+    }
+}
+
 
 ApiError.ResourceNotFoundError = ResourceNotFoundError;
 ApiError.ValidationError = ValidationError;
+ApiError.AuthenticationError = AuthenticationError;
 
 
 export default ApiError
