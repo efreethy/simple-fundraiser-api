@@ -18,17 +18,14 @@ if (config.use_env_variable) {
     protocol: 'postgres',
   });
 } else {
-  console.log("DEBUG THIS STUFF")
   var sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
 fs
   .readdirSync(`${__dirname}/models`)
-  .filter(file => {
-    return (file.indexOf('.') !== 0) && (file !== 'index.js') && (file.slice(-3) === '.js');
-  })
+  .filter(file => (file.indexOf('.') !== 0) && (file !== 'index.js') && (file.slice(-3) === '.js'))
   .forEach(file => {
-    var model = sequelize['import'](path.join(`${__dirname}/models`, file));
+    var model = sequelize.import(path.join(`${__dirname}/models`, file));
     db[model.name] = model;
   });
 
