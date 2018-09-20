@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
 import app from './app';
+import db from './db';
+
 var debug = require('debug')('express-sequelize');
 debug('AA')
 var http = require('http');
-import db from './db';
 
 
 const PORT = normalizePort(process.env.PORT || '4001');

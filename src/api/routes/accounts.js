@@ -1,9 +1,12 @@
 import express from 'express';
-import authenticate from '../middlewares/authentication'
-import { validate, LoginSchema, ReadSchema, CreateSchema } from '../schemas/accounts'
-const router  = express.Router();
 
+import authenticate from '../middlewares/authentication';
 import AccountsResource from '../resources/accounts';
+import validate from '../schemas';
+import { CreateSchema, LoginSchema, ReadSchema } from '../schemas/accounts';
+
+console.log('CreateSchema: ', CreateSchema)
+const router  = express.Router();
 
 router.post(
   '/login', 

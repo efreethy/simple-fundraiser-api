@@ -4,15 +4,15 @@
   "private": true,
   "scripts": {
     "clean": "rm -rf build && mkdir build",
-    "build": "npm run clean && npm run build:babel && npm run build:static-files",
+    "build": "npm run clean && npm run build:babel",
     "build:babel": "babel -d ./build ./src -s --copy-files",
-    "build:static-files": "cp -R ./src/views ./build/views",
     "postinstall": "npm run build",
     "start": "npm run build && npmDEBUG=express-sequelize node ./build/index.js",
     "start:dev": "npm run build && npmDEBUG=express-sequelize node ./build/index.js",
     "test": "npm run test-unit && npm run test-integration",
     "test-unit": "cross-env NODE_ENV=test ./node_modules/.bin/mocha build/test/unit/*.test.js",
-    "test-integration": "cross-env NODE_ENV=test ./node_modules/.bin/mocha build/test/integration/*.test.js"
+    "test-integration": "cross-env NODE_ENV=test ./node_modules/.bin/mocha build/test/integration/*.test.js",
+    "sort": "./node_modules/.bin/js-import-sort --path ./src/*"
   },
   "dependencies": {
     "bluebird": "^3.5.1",
@@ -23,6 +23,7 @@
     "express-joi-validation": "^0.2.1",
     "express-jwt": "^5.3.1",
     "joi": "^13.6.0",
+    "js-import-sort": "^1.2.0",
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.11",
     "morgan": "^1.7.0",
@@ -31,6 +32,7 @@
     "pug": "^2.0.0-rc.4",
     "sequelize": "^4.38.1",
     "sequelize-cli": "^4.1.1",
+    "sequelize-querystring": "^0.9.1",
     "serve-favicon": "~2.3.0",
     "short-unique-id": "^1.1.1",
     "sqlite3": "^4.0.0"

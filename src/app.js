@@ -1,17 +1,18 @@
-import express from 'express';
 import path from 'path';
-import logger from 'morgan';
-import cookieParser from 'cookie-parser';
+
 import bodyParser from 'body-parser';
-import accounts  from './api/routes/accounts';
+import cookieParser from 'cookie-parser';
+import express from 'express';
+import logger from 'morgan';
+
 import ApiError from './api/errors';
+import accounts from './api/routes/accounts';
+import groups from './api/routes/groups';
+import fundraisers from './api/routes/fundraisers';
+
 require('express-joi-validation')({ passError: true })
 
 const app = express();
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -22,6 +23,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/accounts', accounts);
+app.use('/groups', groups);
+app.use('/fundraisers', fundraisers);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

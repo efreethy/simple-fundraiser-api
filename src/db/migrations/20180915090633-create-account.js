@@ -16,7 +16,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      user_type: {
+      account_type: {
         type: Sequelize.STRING,
         allowNull: false
       },

@@ -3,7 +3,7 @@
 var ShortUniqueId = require('short-unique-id');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
-const ID_PREFIX = 'acc_'
+const ID_PREFIX = 'account-'
 
 module.exports = (sequelize, DataTypes) => {
   const Account = sequelize.define('Account', {
@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       allowNull: false,
       unique: true,
+      field: 'id',
       defaultValue: () => {
         var uid = new ShortUniqueId();
         return `${ID_PREFIX+uid.randomUUID(12)}`
@@ -20,12 +21,20 @@ module.exports = (sequelize, DataTypes) => {
     username: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: 'username',
     },
-    password_hash: { 
+    passwordHash: { 
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      field: 'password_hash',
     },
-    user_type: { 
+    password: {
+      type: DataTypes.VIRTUAL,
+      set: function (val) {
+        this.setDataValue('passwordHash', val);
+      },
+    },
+    accountType: { 
       type: DataTypes.STRING,
       validate: {
         isIn: {
@@ -34,24 +43,29 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
       allowNull: false,
+      field: 'account_type',
     },
     email: { 
       type: DataTypes.STRING,
       validate:  {
         isEmail: true
-      }
+      },
+      field: 'email',
     },
-    created_at: {
+    createdAt: {
       allowNull: false,
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
+      field: 'created_at',
     },
-    updated_at: {
+    updatedAt: {
       allowNull: false,
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
+      field: 'updated_at',
     },
   }, {
     tableName: 'accounts',
-    underscored: true,
+    timestamps: true,
+    underscoredAll: true,
   });
 
   Account.findByUsernameOrEmail = ({ username, email }) => {
@@ -61,5 +75,10 @@ module.exports = (sequelize, DataTypes) => {
     
     return Account.findOne({ where: { [Op.or]: or } });
   };
+
+  Account.associate = function (models) {
+    Account.belongsToMany(models.Fundraiser, {through: 'AccountFundraiser'});
+  };
+
   return Account;
 };

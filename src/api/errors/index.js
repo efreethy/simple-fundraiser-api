@@ -1,6 +1,6 @@
-'use strict'
-
 import assign from 'lodash/assign';
+
+'use strict'
 
 class ApiError extends Error {
     constructor(details) {

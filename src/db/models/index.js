@@ -1,12 +1,17 @@
+import fs from 'fs';
+import path from 'path';
+
+import Sequelize from 'sequelize';
+
+import configuration from '../../config/config';
+
 'use strict';
 
-var fs        = require('fs');
-var path      = require('path');
-var Sequelize = require('sequelize');
-var basename  = path.basename(__filename);
-var env       = process.env.NODE_ENV || 'development';
-var config    = require(__dirname + '/../../config/config.js')[env];
-var db        = {};
+const basename  = path.basename(__filename);
+const db = {};
+
+const env  = process.env.NODE_ENV || 'development';
+const config = configuration[env];
 
 if (config.use_env_variable) {
   var sequelize = new Sequelize(process.env[config.use_env_variable], config);
@@ -25,6 +30,7 @@ fs
   });
 
 Object.keys(db).forEach(modelName => {
+  console.log('ASSOCIATING', modelName);
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }
