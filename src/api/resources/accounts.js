@@ -9,8 +9,7 @@ const AccountsResource = {};
 
 const TOKEN_SECRET = config.authentication_token_secret;
 
-AccountsResource.login = async ({ body }) => {
-  const { username, email, password } = body;
+AccountsResource.login = async ({ body: { username, email, password } }) => {
   const account = await db.Account.findByUsernameOrEmail({ username, email });
 
   if (!account || account.passwordHash !== password) {
@@ -33,12 +32,6 @@ AccountsResource.read = async (id) => {
   return account.toJSON();
 }
 
-AccountsResource.create = async ({ body }) => {
-  console.log('BODY: ', body)
-  // const { username, user_type, password, email } = body;
-  const account = await db.Account.create(body);
-
-  return account.toJSON()
-}
+AccountsResource.create = async ({ body }) => db.Account.create(body);
 
 export default AccountsResource;

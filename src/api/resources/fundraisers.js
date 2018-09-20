@@ -15,10 +15,11 @@ FundraisersResource.list = async ({ query }) => {
   });
 }
 
-FundraisersResource.create = async ({ body }) => {
-  return db.Fundraiser.create(body,{
-    include: [{ model: db.Group, as: 'group' }]
-  });
-}
+FundraisersResource.create = async ({ body }) => (
+  db.Fundraiser.create(
+    body,
+    { include: [{ model: db.Group, as: 'group' }] }
+  )
+)
 
 export default FundraisersResource;

@@ -14,8 +14,6 @@ GroupsResource.list = async ({ query }) => {
   });
 }
 
-GroupsResource.create = async ({ body }) => {
-  return  db.Group.create(body);
-}
+GroupsResource.create = async ({ body }) => db.Group.create(body);
 
 export default GroupsResource;
