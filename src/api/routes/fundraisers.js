@@ -12,7 +12,7 @@ router.get(
   authenticate,
   validate.body(ListQuerySchema),
   (req, res, next) => (
-    FundraisersResource.list({ query: req.query })
+    FundraisersResource.list(req)
       .then(data => res.json(data))
       .catch(next)
   )
@@ -22,7 +22,7 @@ router.post(
   '/create',
   authenticate,
   (req, res, next) => (
-    FundraisersResource.create({ body: req.body })
+    FundraisersResource.create(req)
       .then(data => res.json(data))
       .catch(next)
   )

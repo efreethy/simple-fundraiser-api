@@ -12,7 +12,7 @@ router.post(
   '/login', 
   validate.body(LoginSchema),
   (req, res, next) => (
-    AccountsResource.login({ body: req.body })
+    AccountsResource.login(req)
       .then(data => res.json(data))
       .catch(next)
   )
@@ -22,7 +22,7 @@ router.post(
   '/create',
   validate.body(CreateSchema),
   (req, res, next) => (
-    AccountsResource.create({ body: req.body })
+    AccountsResource.create(req)
       .then(data => res.json(data))
       .catch(next)
   )

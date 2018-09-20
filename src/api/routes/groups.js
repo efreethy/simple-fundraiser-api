@@ -12,7 +12,7 @@ router.get(
   authenticate,
   validate.body(ListQuerySchema),
   (req, res, next) => (
-    GroupsResource.list({ query: req.query })
+    GroupsResource.list(req)
       .then(data => res.json(data))
       .catch(next)
   )
@@ -23,7 +23,7 @@ router.post(
   authenticate,
   validate.body(CreateSchema),
   (req, res, next) => (
-    GroupsResource.create({ body: req.body })
+    GroupsResource.create(req)
       .then(data => res.json(data))
       .catch(next)
   )
