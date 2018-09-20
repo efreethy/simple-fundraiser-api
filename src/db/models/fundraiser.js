@@ -69,7 +69,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Fundraiser.associate = function (models) {
-    Fundraiser.belongsTo(models.Account, { foreignKey: 'accountId' })
+    Fundraiser.belongsTo(models.Account, { as: 'account', foreignKey: 'accountId' })
     Fundraiser.belongsTo(models.Group, { as: 'group', foreignKey: 'groupId' })
     Fundraiser.belongsToMany(models.Account, {through: 'AccountFundraiser'});
   };

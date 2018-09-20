@@ -10,9 +10,8 @@ FundraisersResource.list = async ({ query }) => {
     offset: query.offset || 0,
     limit: query.limit || 10,
     where: query.filter ? sqs.find(query.filter) : {},
-    order: query.sort ? sqs.sort(query.sort) : []
-  }, {
-    include: [{ model: db.Group, as: 'group' }]
+    order: query.sort ? sqs.sort(query.sort) : [],
+    include: [{ model: db.Group, as: 'group' }],
   });
 }
 
