@@ -4,6 +4,7 @@ import authenticate from '../middlewares/authentication';
 import AccountsResource from '../resources/accounts';
 import validate from '../schemas';
 import { CreateSchema, LoginSchema, ReadSchema } from '../schemas/accounts';
+import { transaction } from '../routes'
 
 console.log('CreateSchema: ', CreateSchema)
 const router  = express.Router();
@@ -11,20 +12,16 @@ const router  = express.Router();
 router.post(
   '/login', 
   validate.body(LoginSchema),
-  (req, res, next) => (
+  transaction((req, res, next) =>  
     AccountsResource.login(req)
-      .then(data => res.json(data))
-      .catch(next)
   )
 );
 
 router.post(
   '/create',
   validate.body(CreateSchema),
-  (req, res, next) => (
+  transaction((req, res, next) =>  
     AccountsResource.create(req)
-      .then(data => res.json(data))
-      .catch(next)
   )
 );
 
@@ -33,9 +30,7 @@ router.get(
   authenticate,
   validate.params(ReadSchema),
   (req, res, next) => (
-    AccountsResource.read(req.params.id)
-      .then(data => res.json(data))
-      .catch(next)
+    res.json(AccountsResource.read(req.params.id))
   )
 );
 

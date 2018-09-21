@@ -16,6 +16,7 @@ require('express-joi-validation')({ passError: true })
 
 const app = express();
 
+app.use(require('express-promise')());
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
@@ -29,6 +30,7 @@ app.use('/groups', groups);
 app.use('/fundraisers', fundraisers);
 app.use('/prizes', prizes);
 app.use('/prize_programs', prize_programs);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

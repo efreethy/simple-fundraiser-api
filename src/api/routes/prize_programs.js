@@ -1,11 +1,12 @@
 import express from 'express';
+var Promise = require('bluebird');
 
 import db from '../../db';
 import authenticate from '../middlewares/authentication';
 import PrizeProgramsResource from '../resources/prize_programs';
 import validate from '../schemas';
 import { CreateSchema, ListQuerySchema } from '../schemas/prize_programs';
-
+import { transaction } from '../routes'
 const router  = express.Router();
 
 router.get(
@@ -19,33 +20,12 @@ router.get(
   )
 );
 
-
 router.post(
   '/create',
   authenticate,
-  (req, res, next) => (
-    db.sequelize.transaction(t => (
-      PrizeProgramsResource.create(req, t)
-    ))
-    .then(data => res.json(data))
-    .catch(next)
-  ),
+  transaction((req, res, next) => PrizeProgramsResource.create(req))
 );
 
 module.exports = router;
 
-// return sequelize.transaction().then(function (t) {
-//   return User.create({
-//     firstName: 'Bart',
-//     lastName: 'Simpson'
-//   }, {transaction: t}).then(function (user) {
-//     return user.addSibling({
-//       firstName: 'Lisa',
-//       lastName: 'Simpson'
-//     }, {transaction: t});
-//   }).then(function () {
-//     return t.commit();
-//   }).catch(function (err) {
-//     return t.rollback();
-//   });
-// });
+

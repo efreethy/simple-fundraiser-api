@@ -26,7 +26,7 @@ PrizeProgramsResource.create = async ({ body }) => {
         [{ 
           model: db.PrizeLevel, as: 'prizeLevels', 
           include: [{ 
-            model: db.Prize, as: 'prize' , ignoreDuplicates: true, updateOnDuplicate: ['name'], 
+            model: db.Prize, as: 'prize', 
           }]
         }] 
     }
