@@ -1,12 +1,14 @@
 import express from 'express';
-var Promise = require('bluebird');
 
 import db from '../../db';
 import authenticate from '../middlewares/authentication';
 import PrizeProgramsResource from '../resources/prize_programs';
+import { transaction } from '../routes';
 import validate from '../schemas';
 import { CreateSchema, ListQuerySchema } from '../schemas/prize_programs';
-import { transaction } from '../routes'
+
+var Promise = require('bluebird');
+
 const router  = express.Router();
 
 router.get(

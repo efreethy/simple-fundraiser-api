@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import express from 'express';
 import logger from 'morgan';
 
+// cookies
 import ApiError from './api/errors';
 import accounts from './api/routes/accounts';
 import groups from './api/routes/groups';
@@ -25,6 +26,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// core resources
 app.use('/accounts', accounts);
 app.use('/groups', groups);
 app.use('/fundraisers', fundraisers);
@@ -32,14 +34,14 @@ app.use('/prizes', prizes);
 app.use('/prize_programs', prize_programs);
 
 
-// catch 404 and forward to error handler
+// 404 handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
-// error handler
+// Error handler
 app.use((err, _, res, __) => {
   res.status(err.status || 500);
   console.log('ERROR', err);

@@ -2,9 +2,9 @@ import express from 'express';
 
 import authenticate from '../middlewares/authentication';
 import GroupsResource from '../resources/groups';
+import { transaction } from '../routes';
 import validate from '../schemas';
 import { CreateSchema, ListQuerySchema } from '../schemas/groups';
-import { transaction } from '../routes'
 
 const router  = express.Router();
 

@@ -2,9 +2,9 @@ import express from 'express';
 
 import authenticate from '../middlewares/authentication';
 import FundraisersResource from '../resources/fundraisers';
+import { transaction } from '../routes';
 import validate from '../schemas';
 import { CreateSchema, ListQuerySchema } from '../schemas/fundraisers';
-import { transaction } from '../routes'
 
 const router  = express.Router();
 

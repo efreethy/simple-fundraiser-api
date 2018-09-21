@@ -2,9 +2,9 @@ import express from 'express';
 
 import authenticate from '../middlewares/authentication';
 import AccountsResource from '../resources/accounts';
+import { transaction } from '../routes';
 import validate from '../schemas';
 import { CreateSchema, LoginSchema, ReadSchema } from '../schemas/accounts';
-import { transaction } from '../routes'
 
 console.log('CreateSchema: ', CreateSchema)
 const router  = express.Router();
