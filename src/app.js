@@ -3,9 +3,9 @@ import path from 'path';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import express from 'express';
+import get from 'lodash/get';
 import logger from 'morgan';
 
-// cookies
 import ApiError from './api/errors';
 import accounts from './api/routes/accounts';
 import groups from './api/routes/groups';
@@ -17,14 +17,13 @@ require('express-joi-validation')({ passError: true })
 
 const app = express();
 
-app.use(require('express-promise')());
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(require('express-promise')());
+app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
+// TODO app.use(favicon(__dirname + '/public/favicon.ico'));
 
 // core resources
 app.use('/accounts', accounts);
@@ -35,7 +34,7 @@ app.use('/prize_programs', prize_programs);
 
 
 // 404 handler
-app.use(function(req, res, next) {
+app.use((_, __, next) => {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
@@ -43,17 +42,20 @@ app.use(function(req, res, next) {
 
 // Error handler
 app.use((err, _, res, __) => {
-  res.status(err.status || 500);
-  console.log('ERROR', err);
   let error = err;
-  if (err.error && err.error.isJoi) {
+  
+  console.log(error);
+  
+  res.status(err.status || 500);
+
+  if (get(error,'error.isJoi')) {
     error = new ApiError.ValidationError({ message: err.error.details[0].message });
   }
   if (app.get('env') === 'development')  {
-    res.json(error);
-  } else {
-    res.json({ code: error.code, message: error.message })
-  }
+    return res.json(error);
+  } 
+    
+  return res.json({ code: error.code, message: error.message })
 });
 
 
