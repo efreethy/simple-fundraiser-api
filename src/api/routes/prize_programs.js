@@ -1,11 +1,10 @@
 import express from 'express';
 
+import db from '../../db';
 import authenticate from '../middlewares/authentication';
 import PrizeProgramsResource from '../resources/prize_programs';
 import validate from '../schemas';
 import { CreateSchema, ListQuerySchema } from '../schemas/prize_programs';
-
-import db from '../../db';
 
 const router  = express.Router();
 

@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
+import continuationLocalStorage from 'continuation-local-storage';
 import Sequelize from 'sequelize';
-import continuationLocalStorage from 'continuation-local-storage'
 
 import config from '../config';
 
