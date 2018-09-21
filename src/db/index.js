@@ -2,8 +2,11 @@ import fs from 'fs';
 import path from 'path';
 
 import Sequelize from 'sequelize';
+import continuationLocalStorage from 'continuation-local-storage'
 
 import config from '../config';
+
+
 
 'use strict';
 
@@ -39,5 +42,7 @@ Object.keys(db).forEach(modelName => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+
+db.Sequelize.useCLS(continuationLocalStorage.createNamespace('transaction'));
 
 export default db;
